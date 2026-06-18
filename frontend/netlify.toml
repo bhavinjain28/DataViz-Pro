@@ -1,0 +1,17 @@
+# Netlify config for the DataViz Pro frontend.
+# In the Netlify UI set the site's "Base directory" to: dataviz-pro/frontend
+# (then command/publish below are resolved relative to it).
+
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+# SPA fallback — every route serves index.html (React handles routing).
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+# Note: set VITE_API_URL in Netlify → Site settings → Environment variables
+# to your backend URL, e.g. https://your-backend.up.railway.app/api
+# It is read at BUILD time, so redeploy after changing it.
