@@ -34,6 +34,11 @@ app.include_router(upload.router, prefix="/api/upload", tags=["upload"])
 app.include_router(chat.router, prefix="/api/chat", tags=["chat"])
 
 
+@app.get("/")
+def root():
+    return {"message": "DataViz Pro API", "version": "2.0.0"}
+
+
 @app.get("/api/health")
 def health():
     return {"status": "ok", "version": "2.0.0"}
