@@ -66,7 +66,7 @@ high-CAC channel, a margin dip, a churn anomaly) for the AI to discover.
 |---|---|---|
 | `ANTHROPIC_API_KEY` | — | **Required.** Never ships to the frontend. |
 | `ANTHROPIC_MODEL` | `claude-sonnet-4-6` | Model for the chat analyst |
-| `ALLOWED_ORIGINS` | `http://localhost:5173` | Comma-separated CORS origins |
+| `ALLOWED_ORIGINS` | `http://localhost:5173,https://intelligent-analytics-dashboard-bjain.netlify.app` | Comma-separated CORS origins |
 | `MAX_FILE_SIZE_MB` | `50` | Upload size limit |
 | `SESSION_TTL_MINUTES` | `60` | In-memory session expiry |
 
@@ -74,18 +74,22 @@ high-CAC channel, a margin dip, a churn anomaly) for the AI to discover.
 
 ### Backend → Railway
 
-1. New project → deploy from this repo, **service root = `backend/`**
-   (`railway.toml`, `.python-version` are picked up automatically).
-2. Set env vars: `ANTHROPIC_API_KEY`, `ALLOWED_ORIGINS=https://<your-app>.vercel.app`.
-3. Note the public URL, e.g. `https://dataviz-pro.up.railway.app`.
+1. Create a new project and deploy from this repo.
+2. Set the service root to `backend/` so Railway builds the FastAPI backend.
+3. Add required env vars:
+   - `ANTHROPIC_API_KEY`
+   - `ALLOWED_ORIGINS=http://localhost:5173,https://intelligent-analytics-dashboard-bjain.netlify.app`
+4. Copy the Railway public URL, for example:
+   `https://dataviz-pro-production.up.railway.app`
 
-### Frontend → Vercel
+### Frontend → Netlify
 
-1. New project → import repo, **root directory = `frontend/`**.
-2. Create the secret referenced by `vercel.json`:
-   `vercel secrets add api_url https://dataviz-pro.up.railway.app/api`
-   (or set `VITE_API_URL` as a plain build env var in the dashboard).
-3. Deploy. Update `ALLOWED_ORIGINS` on Railway if the Vercel domain changes.
+1. Connect `bhavinjain28/DataViz-Pro` to Netlify.
+2. Set the base directory to `frontend`.
+3. Set the build command to `npm run build` and publish directory to `dist`.
+4. Add a build environment variable:
+   - `VITE_API_URL=https://dataviz-pro-production.up.railway.app/api`
+5. Deploy the site. The inferred frontend URL is your Netlify site.
 
 ## Security notes
 
